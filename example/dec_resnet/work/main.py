@@ -62,7 +62,7 @@ if __name__ == '__main__':
     to_train = args.train
 
     if to_train:
-        model_names = ["Resnet18", "Resnet50", "Resnet18_pretrain", "Resnet50_pretrain"]
+        model_names = ["Resnet18", "Resnet50", "Resnet18_pretrain_2", "Resnet50_pretrain_23"]
         load_models = [False, False, False, False]
 #         model_names = ["Resnet50_pretrain_2", "Resnet50_2"]
         model_names = ["Resnet50_pretrain_23"]#, "Resnet50_2"]
@@ -75,28 +75,28 @@ if __name__ == '__main__':
             if model_name == "Resnet18_2":
                 model = ResNetPretrain(18, pretrained=False).to(device)
                 if load_models[idx]:
-                    model.load_state_dict(torch.load("./" + model_name + ".pth"))
-                iteration = 1
+                    model.load_state_dict(torch.load("./" + model_name + ".pkl"))
+                iteration = 3
             elif model_name == "Resnet50_2":
                 model = ResNetPretrain(50, pretrained=False).to(device)
                 if load_models[idx]:
-                    model.load_state_dict(torch.load("./" + model_name + ".pth"))
-                iteration = 1
+                    model.load_state_dict(torch.load("./" + model_name + ".pkl"))
+                iteration = 2
             elif model_name == "Resnet18_pretrain_2":
                 if load_models[idx]:
                     model = ResNetPretrain(18, pretrained=False).to(device)
-                    model.load_state_dict(torch.load("./" + model_name + ".pth"))
+                    model.load_state_dict(torch.load("./" + model_name + ".pkl"))
                 else:
                     model = ResNetPretrain(18, pretrained=True).to(device)
-                iteration = 15
+                iteration = 3
 
             elif model_name == "Resnet50_pretrain_23":
                 if load_models[idx]:
                     model = ResNetPretrain(50, pretrained=False).to(device)
-                    model.load_state_dict(torch.load("./" + model_name + ".pth"))
+                    model.load_state_dict(torch.load("./" + model_name + ".pkl"))
                 else:
                     model = ResNetPretrain(50, pretrained=True).to(device)
-                iteration = 80
+                iteration = 2
             else:
                 print("Error! Cannot recognize model name.")
             
@@ -126,7 +126,7 @@ if __name__ == '__main__':
                 model.train(mode=True)
                 if test_acc > max_acc:
                     max_acc = test_acc
-                    torch.save(model.state_dict(), "./" + model_name + ".pth")
+                    torch.save(model.state_dict(), "./" + model_name + ".pkl")
                 print("test_acc:", test_acc)
                 test_accs.append(test_acc)
                 if test_acc>=82:
@@ -144,8 +144,8 @@ if __name__ == '__main__':
             plt.close()
     
     else:
-        model_names = ["./Resnet18_2.pth", "./Resnet50_2.pth"]
-                #"./Resnet18_pretrain_2.pth", "./Resnet50_pretrain_23_82.pth"]#"./Resnet50_pretrain_2.pth"]
+        model_names = ["./Resnet18_2.pkl", "./Resnet50_2.pkl"]
+                #"./Resnet18_pretrain_2.pkl", "./Resnet50_pretrain_23_82.pkl"]#"./Resnet50_pretrain_2.pkl"]
         models = [ResNetPretrain(18, pretrained=False).to(device), 
                 ResNetPretrain(50, pretrained=False).to(device), 
                 ResNetPretrain(18, pretrained=False).to(device), 
