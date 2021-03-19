@@ -6,4 +6,4 @@ matplotlib
 seaborn
 torch==1
 torchvision
-pillow==6.2.2
+pillow==8.1.1
