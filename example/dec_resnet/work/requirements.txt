@@ -4,6 +4,6 @@ scikit-learn
 tqdm
 matplotlib
 seaborn
-torch==1
+torch==1.13.1
 torchvision
 pillow==8.1.1
